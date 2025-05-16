@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_payment_method_view_form_inherit_pos_paymob" model="ir.ui.view">
+        <field name="name">pos.payment.method.form.inherit.paymob</field>
+        <field name="model">pos.payment.method</field>
+        <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='use_payment_terminal']" position="after">
+                <!-- Paymob -->
+                <field name="paymob_api_key" invisible="use_payment_terminal != 'paymob'" required="use_payment_terminal == 'paymob'" password="True"/>
+                <field name="paymob_terminal_id" invisible="use_payment_terminal != 'paymob'" required="use_payment_terminal == 'paymob'"/>
+                <field name="paymob_country_selection" invisible="use_payment_terminal != 'paymob'"/>
+                <button name="action_get_paymob_hmac" type="object" class="btn-primary" string="Set Paymob HMAC" invisible="use_payment_terminal != 'paymob'"/>
+                <div role="status" invisible="use_payment_terminal != 'paymob'">
+                    <p>
+                        <strong>Note:</strong> Please configure your callback URL as: 
+                        <strong>`your-website`/pos_paymob/notification</strong>
+                    </p>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
