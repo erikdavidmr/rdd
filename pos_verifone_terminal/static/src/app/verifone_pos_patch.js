@@ -2,10 +2,10 @@
 
 import { registry } from "@web/core/registry";
 
+// Listener del webhook desde backend
 registry.category("pos_payment_method").add("verifone_bus_listener", {
     async setup(pos) {
-        // Espera a que el POS haya cargado completamente
-        await pos.ready;  // <--- esta línea es importante
+        await pos.ready;
 
         pos.bus.on("VERIFONE_LATEST_RESPONSE", null, (payload) => {
             console.log("[Verifone] Evento VERIFONE_LATEST_RESPONSE recibido:", payload);
@@ -26,5 +26,14 @@ registry.category("pos_payment_method").add("verifone_bus_listener", {
         });
 
         console.log("[Verifone] Listener activo para VERIFONE_LATEST_RESPONSE");
+    },
+});
+
+// Exponer `pos` globalmente para pruebas desde consola
+registry.category("pos_payment_method").add("verifone_expose_pos", {
+    async setup(pos) {
+        await pos.ready;
+        window.pos = pos;
+        console.log("[Verifone] POS expuesto globalmente como 'window.pos'");
     },
 });

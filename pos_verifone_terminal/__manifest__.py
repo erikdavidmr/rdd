@@ -12,6 +12,8 @@
     "depends": ["point_of_sale"],
     "data": [
         "views/pos_payment_method.xml",
+        "views/pos_payment_verifone_views.xml",
+
     ],
     "assets": {
         "point_of_sale._assets_pos": [
